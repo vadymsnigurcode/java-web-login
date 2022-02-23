@@ -30,25 +30,24 @@
 							<div class="form-group">
 								<label for="name"><i
 									class="zmdi zmdi-account material-icons-name"></i></label> <input
-									type="text" name="name" id="name" placeholder="Your Name" />
+									type="text" name="name" id="name" placeholder="Your Name" required="required" />
 							</div>
 							<div class="form-group">
 								<label for="email"><i class="zmdi zmdi-email"></i></label> <input
-									type="email" name="email" id="email" placeholder="Your Email" />
+									type="email" name="email" id="email" placeholder="Your Email" required="required"/>
 							</div>
 							<div class="form-group">
 								<label for="pass"><i class="zmdi zmdi-lock"></i></label> <input
-									type="password" name="pass" id="pass" placeholder="Password" />
-							</div>
+									type="password" name="pass" id="pass" placeholder="Password" required="required"/>							</div>
 							<div class="form-group">
 								<label for="re-pass"><i class="zmdi zmdi-lock-outline"></i></label>
 								<input type="password" name="re_pass" id="re_pass"
-									placeholder="Repeat your password" />
+									placeholder="Repeat your password" required="required"/>
 							</div>
 							<div class="form-group">
 								<label for="contact"><i class="zmdi zmdi-lock-outline"></i></label>
 								<input type="text" name="contact" id="contact"
-									placeholder="Contact no" />
+									placeholder="Contact no" required="required"/>
 							</div>
 							<div class="form-group">
 								<input type="checkbox" name="agree-term" id="agree-term"
@@ -86,6 +85,27 @@
 		var status = document.getElementById("status").value;
 		if (status == "success") {
 			swal("Congrats", "Account Created Successfully", "success");
+		}
+		if (status == "invalidName") {
+			swal("Sorry", "Please enter name", "error");
+		}
+		if (status == "invalidEmail") {
+			swal("Sorry", "Please enter email", "error");
+		}
+		if (status == "invalidUpwd") {
+			swal("Sorry", "Please enter password", "error");
+		}
+		if (status == "invalidReupwd") {
+			swal("Sorry", "Please enter confirm password", "error");
+		}
+		if (status == "invalidConfirmPassword") {
+			swal("Sorry", "Password and Confirm password fields are not the same", "error");
+		}
+		if (status == "invalidMobile") {
+			swal("Sorry", "Please enter mobile number", "error");
+		}
+		if (status == "invalidMobileLength") {
+			swal("Sorry", "Mobile number should have 10 digits", "error");
 		}
 	</script>
 

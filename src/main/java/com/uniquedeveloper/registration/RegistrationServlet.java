@@ -32,7 +32,9 @@ public class RegistrationServlet extends HttpServlet {
 		String uname = request.getParameter("name");
 		String uemail = request.getParameter("email");
 		String upwd = request.getParameter("pass");
+		String reupwd = request.getParameter("re_pass");
 		String umobile = request.getParameter("contact");
+
 		RequestDispatcher dispatcher = null;
 //		PrintWriter out = response.getWriter();
 //		out.print(uname);
@@ -40,12 +42,47 @@ public class RegistrationServlet extends HttpServlet {
 //		out.print(upwd);
 //		out.print(umobile);
 		Connection conn = null;
+
+		if (uname == null || uname.equals("")) {
+			request.setAttribute("status", "invalidName");
+			dispatcher = request.getRequestDispatcher("registration.jsp");
+			dispatcher.forward(request, response);
+		}
+		if (uemail == null || uemail.equals("")) {
+			request.setAttribute("status", "invalidEmail");
+			dispatcher = request.getRequestDispatcher("registration.jsp");
+			dispatcher.forward(request, response);
+		}
+		if (upwd == null || upwd.equals("")) {
+			request.setAttribute("status", "invalidUpwd");
+			dispatcher = request.getRequestDispatcher("registration.jsp");
+			dispatcher.forward(request, response);
+		}
+		if (reupwd == null || reupwd.equals("")) {
+			request.setAttribute("status", "invalidReupwd");
+			dispatcher = request.getRequestDispatcher("registration.jsp");
+			dispatcher.forward(request, response);
+		}
+		if (!upwd.equals(reupwd)) {
+			request.setAttribute("status", "invalidConfirmPassword");
+			dispatcher = request.getRequestDispatcher("registration.jsp");
+			dispatcher.forward(request, response);
+		}
+		if (umobile == null || umobile.equals("")) {
+			request.setAttribute("status", "invalidMobile");
+			dispatcher = request.getRequestDispatcher("registration.jsp");
+			dispatcher.forward(request, response);
+		} else if (umobile.length() > 10) {
+			request.setAttribute("status", "invalidMobileLength");
+			dispatcher = request.getRequestDispatcher("registration.jsp");
+			dispatcher.forward(request, response);
+		}
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3307/youtube?useSSL=false", "root", "root");
 			PreparedStatement pst = conn
 					.prepareStatement("insert into users(uname,uemail,upwd,umobile) values(?,?,?,?)");
-			
+
 			pst.setString(1, uname);
 			pst.setString(2, uemail);
 			pst.setString(3, upwd);
